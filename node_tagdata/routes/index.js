@@ -9,10 +9,17 @@ router.get('/', function(req, res, next) {
 router.post('/login', function(req, res, next) {
     var id = req.body['id'];
     var pass = req.body['password'];
+
     console.log("[入力された値]  id : " + id + " pass : " + pass);
 
     //ログイン処理分ける
     if (id == "express" && pass == "password") {
+        req.session.id = id;
+        req.session.name = "なまえ";
+
+        //couchDB からデータを取得
+        　
+        console.log(req.session.name);
         res.render('login', { title: 'Login' });
     } else {
         res.render('index', { title: 'Login Error' });

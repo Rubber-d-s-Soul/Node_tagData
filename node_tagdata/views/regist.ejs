@@ -2,10 +2,18 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <%- include('./component/css.ejs') %>
   </head>
   <body>
+  <div class="row">
+  <div class="col s3">
+  <%- include('./component/sidebar.ejs') %>
+  </div>
+  <div class="col s9">
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+    </div>
+    </div>
   </body>
+   <%- include('./component/js.ejs') %>
 </html>

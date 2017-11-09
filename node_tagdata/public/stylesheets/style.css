@@ -1,8 +1,46 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    padding: 50px;
+    font: 14px "Century Gothic", Helvetica, Arial, sans-serif;
+    color: #616161;
 }
 
 a {
-  color: #00B7FF;
+    color: #00B7FF;
+}
+
+
+/*サイドバー*/
+
+#slide-out {
+    z-index: 999;
+}
+
+li#side-logo :hover {
+    background-color: transparent;
+    color: #4dd0e1;
+    transition: 0.5s;
+}
+
+li#side-logo {
+    padding: 12px 0px 2px 0px;
+}
+
+#side-logo a {
+    font-size: 1.5em;
+}
+
+#slide-in {
+    background-color: transparent;
+    z-index: 500;
+}
+
+
+/*タグ入力フォーム*/
+
+#tags_input {
+    margin-top: 20px;
+}
+
+.card .card-content {
+    padding-bottom: 0px;
 }

@@ -2,10 +2,44 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <%- include('./component/css.ejs') %>
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+  <div class="row">
+  <div class="col s3">
+  <%- include('./component/sidebar.ejs') %>
+  </div>
+  <div class="col s9">
+  <div class="col s12 m8">
+    <h4><%= title %></h4>
+     <div class="row">
+         <div class="card">
+            <div class="card-content">
+              <span class="card-title center-align">Add Data</span>
+             <form>
+             <div class="row">
+              <div class="input-field col s12">
+               <input placeholder="タイトルを入力" id="title" type="text" class="validate">
+               <label for="title">Title</label>
+            </div>
+            <div id="tags_input" class="col s12">
+            <p class="caption">Tags</p>
+            <div class="input-field  chips chips-autocomplete" data-index="0" data-initialized="true">
+              <input class="input" placeholder="関連タグ入力" id="tags">
+              <ul class="autocomplete-content dropdown-content"></ul>
+            </div>
+            </div>
+        </div>
+             </form>
+            </div>
+            <div class="card-action">
+                <a href="#" class="btn right-align">Add</a>
+            </div>
+          </div>
+        </div>
+        </div>
+    </div>
+    </div>
   </body>
+   <%- include('./component/js.ejs') %>
 </html>

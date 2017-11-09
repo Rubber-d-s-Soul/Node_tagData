@@ -5,13 +5,21 @@
     <%- include('./component/css.ejs') %>
   </head>
   <body>
+  <div class="row">
+  <div class="col s3">
+  <%- include('./component/sidebar.ejs') %>
+  </div>
+  <div class="col s9">
     <h1><%= title %></h1>
+    <p>Hello,<%= name %> !</p>
     <p>Welcome to <%= title %></p>
     <ul>
     <li><a href="/tag">tag</a></li>
     <li><a href="/regist">regist</a></li>
     <li><a href="/data">data</a></li>
     </ul>
+    </div>
+    </div>
   </body>
    <%- include('./component/js.ejs') %>
 </html>

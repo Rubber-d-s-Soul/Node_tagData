@@ -1,25 +1,44 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
     <%- include('./component/css.ejs') %>
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-    <div class="row">
-    <form class="col s12" method="post" action="/login">
-     <div class="input-field col s12">
-          <input id="id" type="text"  name="id" class="validate">
-          <label for="id">ID</label>
+</head>
+
+<body class=" grey lighten-3">
+    <div class="container">
+        <div class="row">
+            <div class="col s8 offset-s2">
+                <div class="row">
+                 <div class="card grey darken-2 col s12 white-text hoverable">
+                     <div class="card-content">
+                            <h1>
+                             <%= title %>
+                            </h1>
+                           <p>Welcome to
+                               <%= title %>
+                           </p>
+                           <form  method="post" action="/top">
+                               <div class="input-field col s12">
+                                   <input id="id" type="text" name="id" class="validate">
+                                  <label for="id">ID</label>
+                             </div>
+                                <div class="input-field col s12">
+                                    <input id="password" type="password" name="password" class="validate">
+                                 <label for="password">Password</label>
+                                </div>
+                                <button type="submit" class="btn">login</button>
+                          </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-     <div class="input-field col s12">
-          <input id="password" type="password" name="password" class="validate">
-          <label for="password">Password</label>
-        </div>
-      <button type="submit"  class="btn">login</button>
-    </form>
     </div>
-     </body>
-   <%- include('./component/js.ejs') %>
+</body>
+<%- include('./component/js.ejs') %>
+
 </html>

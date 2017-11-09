@@ -4,7 +4,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('Login', { title: 'ログイン' });
+    res.render('top', { title: 'top' });
 });
 
 module.exports = router;

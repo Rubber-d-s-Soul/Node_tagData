@@ -6,7 +6,7 @@ router.get('/', function(req, res, next) {
     res.render('index', { title: 'Express' });
 });
 
-router.post('/login', function(req, res, next) {
+router.post('/top', function(req, res, next) {
     var id = req.body['id'];
     var pass = req.body['password'];
 
@@ -15,12 +15,15 @@ router.post('/login', function(req, res, next) {
     //ログイン処理分ける
     if (id == "express" && pass == "password") {
         req.session.id = id;
-        req.session.name = "なまえ";
+        req.session.name = "スギヤマ";
 
         //couchDB からデータを取得
-        　
+        var data = {
+            title: 'Top Page',
+            name: req.session.name
+        }
         console.log(req.session.name);
-        res.render('login', { title: 'Login' });
+        res.render('top', data);
     } else {
         res.render('index', { title: 'Login Error' });
     }

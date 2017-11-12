@@ -41,6 +41,6 @@ li#side-logo {
     margin-top: 20px;
 }
 
-.card .card-content {
+#data-addCard.card .card-content {
     padding-bottom: 0px;
 }

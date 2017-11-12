@@ -9,7 +9,30 @@ var moment = require("moment");
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('data', { title: 'data 一覧表示ページ' });
+    var couch = db.couchdb;
+    var dbname = "book_db";
+    var viewUrl = "_design/book/_view/get_all";
+    //couchのbook_dbからデータを取得する
+    couch.get(dbname, viewUrl).then(({ data, headers, status }) => {
+        console.log("[couchDB " + dbname + " ] get SUCCESS");
+        console.log(data);
+
+        var sendData = {
+            title: "Book Data",
+            data: data.rows,
+        }
+
+        res.render('data', sendData);
+    }, err => {
+        console.log("[couchDB ERROR]");
+        console.log(err);
+        var data = {
+            title: "Book Data",
+            msg: "db error"
+        }
+
+        res.render('data', data);
+    });
 });
 
 /*ブックデータ登録*/
@@ -17,6 +40,7 @@ router.post('/addbook', function(req, res, next) {
     //ajaxで受け取るデータ
     var data = req.body;
     var title = data.title;
+    var author = data.author;
     var tags = data['tags[]'];
     var couch = db.couchdb;
     var result = {};
@@ -27,6 +51,7 @@ router.post('/addbook', function(req, res, next) {
     //couchdbに入れる
     couch.insert(dbname, {
         title: title,
+        author: author,
         tags: tags,
         createtime: createtime,
         updatetime: createtime,
@@ -35,12 +60,13 @@ router.post('/addbook', function(req, res, next) {
         console.log(status);
         status = true;
         url = "/data";
-        msg = "DB登録に成功しました"
+        msg = "DB登録に成功しました";
         result = {
             "status": status,
             "url": url,
             "msg": msg
         };
+        console.log(result);
         res.send(result);
     }, err => {
         console.log("[couch createDoc ERROR]");

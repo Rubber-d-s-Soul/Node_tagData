@@ -41,6 +41,6 @@ li#side-logo {
     margin-top: 20px;
 }
 
-#data-addCard.card .card-content {
-    padding-bottom: 0px;
+ul.pagination li.active {
+    background-color: #bdbdbd;
 }

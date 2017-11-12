@@ -4,6 +4,8 @@ $(function() {
         console.log("[add book]");
         //title取得
         var title = $('#title').val();
+        //author取得
+        var author = $("#author").val();
 
         //タグ取得
         var tags = $('.chips-autocomplete').material_chip('data');
@@ -11,6 +13,7 @@ $(function() {
 
         var data = {
             "title": title,
+            "author": author,
             "tags": tags
         }
         console.log(data);

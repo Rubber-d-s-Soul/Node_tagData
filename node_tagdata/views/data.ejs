@@ -14,33 +14,51 @@
             <%- include('./component/sidebar.ejs') %>
         </div>
         <div class="col s9">
-            <div class="col s12 m6 offset-m2">
+            <div class="col s12 m10 offset-m1">
                 <h4>
                     <%= title %>
                 </h4>
+                <div id="msg"></div>
                 <div class="row">
+                    <a class="waves-effect waves-light btn modal-trigger grey lighten-4 black-text" href="#modal1">Add Book</a>
                     <div id="data-addCard" class="card">
                         <div class="card-content">
-                            <span class="card-title center-align">Add Data</span>
-                            <div id="msg"></div>
-                            <form>
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input placeholder="タイトルを入力" id="title" type="text" class="validate" name="title">
-                                        <label for="title">Title</label>
-                                    </div>
-                                    <div id="tags_input" class="col s12">
-                                        <p class="caption">Tags</p>
-                                        <div class="input-field  chips chips-autocomplete" data-index="0" data-initialized="true">
-                                            <input class="input" placeholder="関連タグ入力" id="tags" name="tags">
-                                            <ul class="autocomplete-content dropdown-content"></ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="card-action">
-                            <a id="addbook_btn" class="btn right-align">Add</a>
+                            <% if(data !== null) {%>
+                            <table class="highlight responsive-table centered">
+                                <thead>
+                                    <tr>
+                                        <th>Book Title</th>
+                                        <th>Add Date</th>
+                                        <th>tags</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                <% data.forEach(function(bookdata) {%>
+                                    <tr id="<%= bookdata.id %>">
+                                        <td><%=bookdata.value.title %></td>
+                                        <td><%=bookdata.value.author %></td>
+                                        <td>
+                                            <% bookdata.value.tags.forEach(function(tag) {%>
+                                            <div class="chip"><%= tag %></div>
+                                            <% })%>
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+                                </tbody>
+                            </table>
+                            <% } %>
+                               <div class="center-align">
+                         <ul class="pagination">
+    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+    <li class="active"><a href="#!">1</a></li>
+    <li class="waves-effect"><a href="#!">2</a></li>
+    <li class="waves-effect"><a href="#!">3</a></li>
+    <li class="waves-effect"><a href="#!">4</a></li>
+    <li class="waves-effect"><a href="#!">5</a></li>
+    <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+  </ul>
+  </div>
                         </div>
                     </div>
                 </div>
@@ -48,6 +66,40 @@
         </div>
     </div>
 </body>
+<!-- modal -->
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+    <div class="modal-content">
+        <h4>Add BookData</h4>
+        <form>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input placeholder="タイトルを入力" id="title" type="text" class="validate" name="title">
+                    <label for="title">Title</label>
+                </div>
+                 <div class="input-field col s12">
+                    <input placeholder="著者名を入力" id="author" type="text" class="validate" name="author">
+                    <label for="author">Author</label>
+                </div>
+                <div id="tags_input" class="col s12">
+                    <p class="caption">Tags</p>
+                    <div class="input-field  chips chips-autocomplete" data-index="0" data-initialized="true">
+                        <input class="input" placeholder="関連タグ入力" id="tags" name="tags">
+                        <ul class="autocomplete-content dropdown-content"></ul>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a id="addbook_btn" class="btn right-align">Add</a>
+    </div>
+</div>
+<!--JavaScript source-->
 <%- include('./component/js.ejs') %>
-<script type="text/javascript" src="/javascripts/bookdata.js"></script>
+    <script type="text/javascript" src="/javascripts/bookdata.js"></script>
+    <script>
+        $('.modal').modal();
+    </script>
+
 </html>

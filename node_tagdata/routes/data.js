@@ -4,12 +4,14 @@ var router = express.Router();
 
 /*couchdb*/
 var db = require('./couchdb.js');
+var couch = db.couchdb;
 /*timestamp用*/
 var moment = require("moment");
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    var couch = db.couchdb;
+
+    get_tagdata();
     var dbname = "book_db";
     var viewUrl = "_design/book/_view/get_all";
     //couchのbook_dbからデータを取得する
@@ -79,5 +81,25 @@ router.post('/addbook', function(req, res, next) {
         res.send(result);
     });
 });
+
+var taghash;
+
+function get_tagdata() {
+    var dbname = "booktag_db";
+    var viewUrl = "_design/booktag/_view/get_hash_titlekey";
+
+    couch.get(dbname, viewUrl).then(({ data, headers, status }) => {
+        console.log("[couchDB " + dbname + " ] get SUCCESS");
+        console.log(data.rows[0].value);
+
+        taghash = data.rows[0].value;
+
+    }, err => {
+        console.log("[couchDB ERROR]");
+        console.log(err);
+
+        taghash = data.rows.value;
+    });
+}
 
 module.exports = router;

@@ -11,6 +11,8 @@ $(function() {
         var tags = $('.chips-autocomplete').material_chip('data');
         tags = get_tagValue(tags)
 
+        if (title == "") return false;
+
         var data = {
             "title": title,
             "author": author,

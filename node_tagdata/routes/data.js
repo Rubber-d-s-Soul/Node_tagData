@@ -60,6 +60,10 @@ router.post('/addbook', function(req, res, next) {
     }).then(({ data, headers, status }) => {
         console.log("[couch createDoc SUCCESS]");
         console.log(status);
+
+        console.log("booktagにも登録");
+        add_tags(tags);
+
         status = true;
         url = "/data";
         msg = "DB登録に成功しました";
@@ -82,24 +86,59 @@ router.post('/addbook', function(req, res, next) {
     });
 });
 
-var taghash;
+var tagdata = {};
 
 function get_tagdata() {
     var dbname = "booktag_db";
-    var viewUrl = "_design/booktag/_view/get_hash_titlekey";
+    //var viewUrl = "_design/booktag/_view/get_hash_titlekey";
+    var viewUrl = "_design/booktag/_view/get_tagkey";
 
     couch.get(dbname, viewUrl).then(({ data, headers, status }) => {
         console.log("[couchDB " + dbname + " ] get SUCCESS");
-        console.log(data.rows[0].value);
+        console.log(data.rows);
 
-        taghash = data.rows[0].value;
+        var taghash = data.rows;
+
+        taghash.forEach(function(tags) {
+            tagdata[tags.value.tag] = tags.value.key;
+        });
 
     }, err => {
         console.log("[couchDB ERROR]");
         console.log(err);
 
-        taghash = data.rows.value;
     });
+}
+
+//
+function add_tags(tags) {
+    var dbname = "booktag_db"
+    var newtags = {};
+    var existtags = {};
+
+    tags.forEach(function(tag) {
+        if (tag in tagdata) {
+            existtags["tag"] = tag;
+            existtags["count"] = 1;
+        } else {
+            newtags["tag"] = tag;
+            newtags["count"] = 1;
+        }
+    })
+
+    if (newtags.size < 1) {
+        console.log("新規タグ追加");
+        //新規でタグデータを登録する
+        couch.insert(dbname, newtags).then(({ data, headers, status }) => {
+            console.log("[couch createDoc SUCCESS]");
+            console.log(status);
+
+        }, err => {
+            console.log("[couch createDoc ERROR]");
+
+        });
+    }
+
 }
 
 module.exports = router;
